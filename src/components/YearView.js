@@ -1,13 +1,13 @@
 import React, { useContext } from 'react';
 import { AppContext } from '../App';
 
-function YearView() {
+function YearView({ monthNames }) {
 
   const {
     totalInfo
   } = useContext(AppContext);
 
-  const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
 
   const monthlyIncomeAdder = () => {
     const monthIncomeArray = []
