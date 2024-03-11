@@ -14,11 +14,11 @@ function MoneyTrackerView() {
 
   return (
     <div>
-      <button onClick={() => setShowMonth(true)} >Month</button>
-      <button onClick={() => setShowMonth(false)} >Year</button>
-      <button onClick={() => navigate('/')} >Back</button>
-      {showMonth ? <MonthView monthNames={monthNames} /> : <YearView monthNames={monthNames} />}
-    </div>
+  <button onClick={() => setShowMonth(true)} className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-4 rounded mr-2">Month</button>
+  <button onClick={() => setShowMonth(false)} className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-4 rounded mr-2">Year</button>
+  <button onClick={() => navigate('/')} className="bg-gray-300 hover:bg-gray-400 text-gray-800 py-1 px-4 rounded">Back</button>
+  {showMonth ? <MonthView monthNames={monthNames} /> : <YearView monthNames={monthNames} />}
+</div>
   )
 }
 

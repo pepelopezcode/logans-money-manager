@@ -33,11 +33,12 @@ function App() {
     if (!(day in tempInfo[year][month])) {
       tempInfo[year][month][day] = {
         'cash': 0,
-        'notCash': 0
+        'zelle': 0,
+        'color': 0
       }
     }
 
-    tempInfo[year][month][day][typeOfMoney] += parseFloat(moneyAmount);
+    tempInfo[year][month][day][typeOfMoney] = parseFloat(moneyAmount);
     setTotalInfo(tempInfo)
     
   }

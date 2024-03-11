@@ -30,11 +30,9 @@ function MonthView({ monthNames }) {
         totalInfo[2024][chosenMonth][dayKey].dayOfWeek = dayOfWeek;
         moneyPerDayArray.push(totalInfo[2024][chosenMonth][dayKey])
       }else {
-         moneyPerDayArray.push({'cash': 0, 'notCash': 0, dayOfWeek});
+         moneyPerDayArray.push({'cash': 0, 'zelle': 0, 'color': 0, dayOfWeek});
       }
     }
-
-    
     return moneyPerDayArray;
   }
 
@@ -64,11 +62,21 @@ function MonthView({ monthNames }) {
     return separatedWeek
   }
 
-  const weekTotalFinder = (week) => {
+  const weekCashTotalFinder = (week) => {
     let weekTotal = 0;
     for (let i = 0 ; i < week.length ; i++){
       if (week[i]){
-        weekTotal += (week[i].cash + week[i].notCash)
+        weekTotal += (week[i].cash + week[i].color)
+      } 
+    }
+    return weekTotal
+  }
+
+  const weekZelleTotalFinder = (week) => {
+    let weekTotal = 0;
+    for (let i = 0 ; i < week.length ; i++){
+      if (week[i]){
+        weekTotal += (week[i].zelle)
       } 
     }
     return weekTotal
@@ -77,34 +85,65 @@ function MonthView({ monthNames }) {
   const monthHtml = () => {
     const weekElements = [];
       for (let i = 0; i < 6; i++) {
+        if (i > 0 && !(weekSeparator()[i][0])){
+          continue;
+        }else {
         const weekJSX = weekSeparator()[i].map((item, index) => {
-          return item ? <div key={index}>{weekArray[item.dayOfWeek]} {item.dayOfMonth}: ${item.cash} ${item.notCash}</div> :  <div key={index}>//////////////////</div>
+          return item ? 
+          (<div key={index} className='flex' >
+            <p className='w-28 border border-black' >{weekArray[item.dayOfWeek]} {item.dayOfMonth}:</p>
+            <p className='w-28 border border-black '>${item.cash}</p> 
+            <p className='w-28 border border-black '>${item.zelle}</p> 
+            <p className='w-28 border border-black '>${item.color}</p>
+          </div> ):  
+          (<div key={index} className='flex'>
+            <p className='w-28 border border-black bg-slate-600 text-slate-600 ' >1</p>
+            <p className='w-28 border border-black bg-slate-600 text-slate-600 ' >1</p>
+            <p className='w-28 border border-black bg-slate-600 text-slate-600 ' >1</p>
+            <p className='w-28 border border-black bg-slate-600 text-slate-600 ' >1</p>
+          </div>)
         })
-        const weekTotal = weekTotalFinder(weekSeparator()[i]);
+        const cashTotal = weekCashTotalFinder(weekSeparator()[i]);
+        const zelleTotal = weekZelleTotalFinder(weekSeparator()[i]);
         weekElements.push(
-        <div key={i}>
+        <div key={i} >
             {weekJSX}
-            <div>Week {i + 1} Total: ${weekTotal}</div>
-            <div>==========================</div>
-        </div>
-      )}
+            <div className='flex'>
+              <p className='w-28 border border-black ' >Week {i + 1} Totals:</p>
+              <p className='w-28 border border-black ' >Cash + Color</p>
+              <p className='w-28 border border-black ' >Zelle</p>
+            </div>
+            <div className='flex '>
+              <p className='w-28 border border-black '></p>
+              <p p className='w-28 border border-black '> ${cashTotal}</p>
+              <p p className='w-28 border border-black '> ${zelleTotal}</p> 
+            </div>
+            <div>=========================================</div>
+        </div>)
+        }
+        
+      }
       return weekElements
   }
 
  
 
   return (
-    <div>
+    <div className='ml-4' >
       <select
          onChange={e => setChosenMonth(e.target.value)}
          value={chosenMonth}
+         className="border rounded py-1 px-2 my-2"
         >
           {monthArray.map(( item, index )  => {
             return <option value={item} key={index} >{monthNames[index]}</option>
           })}
         </select>
-        <div>
-          Day // Cash // Not Cash
+        <div className='flex mb-4'>
+          <p className='w-28 border border-black'>Day</p>
+          <p className='w-28 border border-black'>Cash</p>
+          <p className='w-28 border border-black'>Zelle</p>
+          <p className='w-28 border border-black'>Color</p>
         </div>
         {monthHtml()}  
     </div>
