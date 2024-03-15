@@ -3,7 +3,9 @@ import { AppContext } from '../App';
 
 function MonthView({ monthNames }) {
 
-  const [ chosenMonth, setChosenMonth ] = useState('01');
+  const currentDate = new Date();
+  let currentMonth = currentDate.getMonth() + 1;
+  const [ chosenMonth, setChosenMonth ] = useState((currentMonth < 10 ? '0' + currentMonth : currentMonth));
 
   const monthArray = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
   const weekArray = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
@@ -13,11 +15,7 @@ function MonthView({ monthNames }) {
   } = useContext(AppContext)
 
   
-  useEffect(() => {
-    const currentDate = new Date();
-    let currentMonth = currentDate.getMonth() + 1; 
-    setChosenMonth(currentMonth < 10 ? '0' + currentMonth : currentMonth)
-  },[])
+  
 
   const incomeForMonth = () => {
     const moneyPerDayArray = []
