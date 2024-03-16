@@ -9,19 +9,23 @@ function MainForm() {
     handleSubmit,
     setMoneyAmount,
     setMonthYear,
-    setTypeOfMoney
+    setTypeOfMoney,
+    moneyAmount
   } = useContext(AppContext)
 
   return (
-    <div>
-  <form onSubmit={handleSubmit} className="flex items-center">
-    <span className="mr-2">$</span>
-    <input
-      type='number'
-      min='0'
-      onChange={e => setMoneyAmount(e.target.value)}
-      className="border rounded py-1 px-2 mr-2"
-    />
+    <div className="flex flex-col items-center mt-10">
+  <form onSubmit={handleSubmit} className="flex items-center mb-4">
+  <div className="relative mx-2">
+      <span className="absolute left-2 pt-1">$</span>
+      <input
+        type='number'
+        min='0'
+        onChange={e => setMoneyAmount(e.target.value)}
+        value={moneyAmount}
+        className="border rounded w-20 py-1 pl-6" 
+      />
+    </div>
     <input
       type='date'
       onChange={e => setMonthYear(e.target.value)}
