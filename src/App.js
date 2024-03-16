@@ -19,12 +19,13 @@ function App() {
   const [ fetchedData, setFetchedData ] = useState([])
 
   useEffect(()=>{
-    fetchTotalInfoData()
+    fetchTotalInfoData();
+    // eslint-disable-next-line
   },[])
 
   const fetchTotalInfoData = async () => {
     try {
-      const response = await fetch('http://localhost:3000/totalinfo');
+      const response = await fetch('https://zwt3xv2mbs.us-west-2.awsapprunner.com/totalinfo');
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
@@ -76,7 +77,7 @@ function App() {
   
   const firstTimeAddingToDb = async (firstData) => {
     try {
-      const response = await fetch('http://localhost:3000/totalinfo', {
+      const response = await fetch('https://zwt3xv2mbs.us-west-2.awsapprunner.com/totalinfo', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -96,7 +97,7 @@ function App() {
   const updateTheDb = async (newData) => {
     const totalInfoId = fetchedData[0]._id
     try {
-      const response = await fetch(`http://localhost:3000/totalinfo/${totalInfoId}`, {
+      const response = await fetch(`https://zwt3xv2mbs.us-west-2.awsapprunner.com/${totalInfoId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
