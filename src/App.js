@@ -22,6 +22,7 @@ function App() {
     fetchTotalInfoData();
     // eslint-disable-next-line
   },[])
+  
 
   const fetchTotalInfoData = async () => {
     try {
@@ -87,17 +88,17 @@ function App() {
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
-      const data = await response.json();
-      console.log('Success:', data);
+      console.log('Success:', `Added $${moneyAmount} to ${typeOfMoney} on ${monthYear.substring(5,7)} ${monthYear.substring(8)} ${monthYear.substring(0, 4)}`);
     } catch (error) {
       console.error('Error:', error);
     }
   };
+  
 
   const updateTheDb = async (newData) => {
     const totalInfoId = fetchedData[0]._id
     try {
-      const response = await fetch(`https://zwt3xv2mbs.us-west-2.awsapprunner.com/${totalInfoId}`, {
+      const response = await fetch(`https://zwt3xv2mbs.us-west-2.awsapprunner.com/totalinfo/${totalInfoId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -107,8 +108,7 @@ function App() {
       if (!response.ok){
         throw new Error('Network response was not ok');
       }
-      const data = await response.json();
-      console.log('Success:', data);
+      console.log('Success:', `Added $${moneyAmount} to ${typeOfMoney} on ${monthYear.substring(5,7)} ${monthYear.substring(8)} ${monthYear.substring(0, 4)}`);
     }catch (error) {
       console.error('Error:', error);
     }
